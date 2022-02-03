@@ -3,15 +3,25 @@ class Student{
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.gender = gender;
-        this.grades = [];
+        this._gender = gender;
+        this._grades = [];     ///proprietà private (non vengono toccate). Se le vogliamo utilizzare dobbiamo usare set e get 
     }
 
-    addGrade(grade){
-        if (grade >= 0 && grade <= 10) {
-            this.grades.push(grade);
+    set grade(value){
+        if (value >= 0 && value <= 10) {
+            this._grades.push(value);
+
         }
     }
+
+    get grade(){
+        return this.calculateMean();
+    }
+    
+    get gender(){
+        return this._gender;
+    }
+
 
     calculateMean(){
        let sum = this.grades.reduce((p, c) => p + c, 0);
