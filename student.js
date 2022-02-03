@@ -1,63 +1,70 @@
-class Student{
+class Student extends Person{
+
     constructor(name, surname, age, gender){
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this._gender = gender;
-        this._grades = [];     ///proprietà private (non vengono toccate). Se le vogliamo utilizzare dobbiamo usare set e get 
+        super(name, surname, age, gender)
+        this._grades = [];
     }
 
     set grade(value){
-        if (value >= 0 && value <= 10) {
+        if (value >= 0 && value <=10) {
             this._grades.push(value);
-
         }
     }
 
     get grade(){
         return this.calculateMean();
     }
-    
-    get gender(){
-        return this._gender;
-    }
+
+    // get gender(){
+    //     return this._gender;
+    // }
+
+
+    // get age(){
+    //     let now = new Date();
+    //     let age = now.getFullYear() - this.yob;
+    //     return age
+    // }
+
+    // set age(value){
+    //     let now = new Date();
+    //     this.yob = now.getFullYear() - value;
+    // }
+
+
 
 
     calculateMean(){
-       let sum = this.grades.reduce((p, c) => p + c, 0);
-       if (this.grades.lenght === 0) {
-           return -1;
-       }
-       let mean = sum / this.grades.length ;
-       return mean; 
+        if (this._grades.length === 0) {
+            return -1;
+        }
+        const sum = this._grades.reduce((p, c) => p + c);
+        const mean = sum / this._grades.length;
+        return mean;
     }
 
-    generateCode(){
-            let now = new Date();
-            let actualYear = now.getFullYear();
-            let birthYear = actualYear - this.age;
-            let code = this.name[0] + this.name[1] + this.surname[0] + this.surname[1] + birthYear;
-            return code;
-        
-    }
 
-    tooString(){
 
-        let mean = this.calculateMean();
+    toString(){
+
+        let mean = this.calculateMean()
 
         if (mean === -1) {
-            mean = "N/c";
+            mean = "N/c"
         }
 
-        let studentDescription = "Nome: " + this.name + "\n" 
+        const studentDescription = "Nome: " + this.name + "\n" 
                                + "Cognome: " + this.surname + "\n"
                                + "Età: " + this.age + "\n"
                                + "Media: " + mean;
 
-            return studentDescription;
-     }
-     
+        return studentDescription;
+    }
+
 }
+
+
+
 
 
 

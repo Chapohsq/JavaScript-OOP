@@ -1,17 +1,28 @@
-//name - surname - age - gender - degree 
-//students = []
-//toString() --> stampa prima i dati dell'insegnante e poi tutti i suoi studenti
-//addStudents(student)  --> se lo studente non è già tra i suoi studenti, allora lo aggiunge (confronto tra lo studentCode())
-//addGrade(studentCode, grade) --> ciclo tra gli studenti, trova quello con lo stesso codice e gli assegna il voto
-//bestStudent() --> return toString() dello studente con la media più alta
+class Teacher extends Person{
+    constructor(name, surname, age, gender, degree) {
+        super(name, surname, age, gender);
+        this.degree = degree;
+        this.students = [];
+    }
 
-class Teacher {
+    toString() {
+        let teacherDescription = "Nome: " + this.name + "\n" 
+                                 + "Cognome: " + this.surname + "\n"
+                                 + "Età: " + this.age + "\n"
+                                 + "Classe: " + this.degree + "\n\n"
+                                 + "Alunni:\n\n";
 
+        for (const stud of this.students) {
+            teacherDescription += stud.toString() + "\n\n";
+        }
+
+        return teacherDescription;
+    }
 
     addStudent(student) {
         // let hasStudent = false;
-        // for (const student of this.students) {
-        //     if (student.generateCode() === student.generateCode()){
+        // for (const stud of this.students) {
+        //     if (stud.generateCode() === student.generateCode()) {
         //         hasStudent = true;
         //     }
         // }
@@ -19,73 +30,68 @@ class Teacher {
         //     this.students.push(student);
         // }
 
-
-        //     for (const student of this.students) {
-        //         if (student.generateCode() ===student.generateCode()){
-        //             return;
-        //         }
+        // for (const stud of this.students) {
+        //     if (stud.generateCode() === student.generateCode()) {
+        //         return;
         //     }
-        //     this.students.push(student);
+        // }
+        // this.students.push(student);
 
-
-        // let hasStudent = this.students.some(student => student.generateCode() === student.generateCode());
+        // let hasStudent = this.students.some(stud => stud.generateCode() === student.generateCode())
         // if (hasStudent === false) {
         //     this.students.push(student);
         // }
 
-        let hasStudent = (!this.students.some(student => student.generateCode() === student.generateCode()));{
+        if (!this.students.some(stud => stud.generateCode() === student.generateCode())) {
             this.students.push(student);
         }
     }
-    
 
-    addGrade(studentCode, grade){
-        // for (const student of this.students) {
-        //     if (student.generateCode() === student.generateCode()) {
-        //         if (grade >= 0 && grade <= 10) {
-        //             student.grades.push(grade);
-        //         }
-                
-        //     }
-        // }
-        // for (const student of this.students) {
-        //     if (student.generateCode() === student.generateCode()) {
-        //         student.addGrade(grade);
-        //         }
-                
+    addGrade(studentCode, grade) {
+        // for (const stud of this.students) {
+        //     if (stud.generateCode() === studentCode) {
+        //         stud.addGrade(grade);
         //     }
         // }
 
-        // this.students = this.students.map((student) => {
-        //     if (student.studentCode() === studentCode) {
-        //         student.addGrade(grade)
+        // this.students = this.students.map((stud) => {
+        //     if (stud.generateCode() === studentCode) {
+        //         stud.addGrade(grade);
         //     }
-        //     return student;
+        //     return stud;
         // });
 
-        this.students.forEach(student => {
-            if (student.studentCode() === studentCode) {
-                student.addGrade(grade);
+        this.students.forEach(stud => {
+            if (stud.generateCode() === studentCode) {
+                stud.grade = grade;
             }
         });
+
+    }
+
+    bestStudent() {
+
+        if (this.students.length === 0) {
+            return null;
+        }
+
+        // let bestStudent = this.students[0];
+
+        // for (let i = 1; i < this.students.length; i++){
+        //     const stud = this.students[i];
+        //     if (stud.calculateMean() > bestStudent.calculateMean()) {
+        //         bestStudent = stud;
+        //     }
+        // }
+        
+        // return bestStudent;
+
+        return this.students.reduce((p, c) => p.calculateMean() > c.calculateMean() ? p : c)
+
     }
 
 
-    bestStudent(){
-
-        if (this.students.length === 0) {
-            return "Nessuno studente";
-        }
-        // let bestStudent = this.students[0];
-        // for (let i = 1; i < this.students.length.length; i++) {
-        //     const student = this.students[i];
-        //     if (student.calculateMean() > bestStudent.calculateMean()) {
-        //         bestStudent = student;
-        //     }
-        // }
-        // return bestStudent.toString();
-
-        
-        return this.students.reduce((std1, std2) => std1.calculateMean() > std2.calculateMean() ? std1 : std2).toString();
+    bestStudentToString(){
+        return this.bestStudent.toString()
     }
 }
